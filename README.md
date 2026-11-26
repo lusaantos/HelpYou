@@ -74,17 +74,25 @@ Esse comando instala as dependências registradas no arquivo `package.json`.
 
 ### 6.3. Configuração do ambiente
 
-Crie um arquivo chamado `.env` na pasta principal do projeto e configure as credenciais de acesso ao Supabase:
+Na pasta principal do projeto (a mesma em que está o `package.json`), crie uma cópia do arquivo `.env.example` e renomeie essa cópia para `.env`. Preencha as variáveis conforme as orientações abaixo:
 
 ```env
-SUPABASE_URL=sua_url_do_supabase
-SUPABASE_KEY=sua_chave_do_supabase
+SUPABASE_URL=https://SEU-PROJETO.supabase.co
+SUPABASE_KEY=SUA_CHAVE_PUBLICAVEL_DO_SUPABASE
 FRONTEND_URL=http://127.0.0.1:5500
+GMAIL_USER=seu_email@gmail.com
+GMAIL_TO=email_que_recebera_as_mensagens@gmail.com
+GMAIL_APP_PASSWORD=SUA_SENHA_DE_APLICATIVO
 ```
 
-Substitua os valores de exemplo pelas credenciais correspondentes ao projeto Supabase.
+- `SUPABASE_URL`: URL do projeto Supabase.
+- `SUPABASE_KEY`: chave pública do projeto (publishable key ou anon key, conforme a configuração disponível no painel). Não utilize a chave `service_role` ou outra chave secreta em código acessível pelo navegador.
+- `FRONTEND_URL`: endereço usado pelo front-end durante o desenvolvimento. Ajuste-o caso a porta ou o endereço do Live Server seja diferente.
+- `GMAIL_USER`: conta Gmail utilizada pelo Nodemailer para enviar mensagens.
+- `GMAIL_TO`: endereço que receberá as mensagens do formulário de contato.
+- `GMAIL_APP_PASSWORD`: senha de aplicativo do Gmail, quando o envio de e-mails estiver configurado para essa conta.
 
-O arquivo `.env` deve permanecer local e não deve ser compartilhado na entrega.
+Para localizar os dados do Supabase, entre no painel do projeto e abra as configurações/API do projeto (ou a área de conexão/API, conforme a versão do painel). Copie a URL do projeto para `SUPABASE_URL` e a chave pública para `SUPABASE_KEY`.
 
 ### 6.4. Inicialização do servidor
 
@@ -125,17 +133,34 @@ No schema `public`, foram identificadas as seguintes tabelas:
 
 As tabelas `perfis` e `registros_estudo` estão relacionadas ao sistema de autenticação do Supabase.
 
-### 7.3. Configuração do banco de dados
+### 7.3. Como conectar o projeto ao Supabase
 
-Para reproduzir a estrutura disponibilizada:
+A conexão é feita pelo back-end Node.js usando a biblioteca `@supabase/supabase-js`. O servidor lê `SUPABASE_URL` e `SUPABASE_KEY` do arquivo `.env` e utiliza esses valores para criar o cliente Supabase.
 
-1. Crie um projeto no [Supabase](https://supabase.com/).
-2. Acesse o **SQL Editor** do projeto.
-3. Abra o arquivo `bancoDados_helpyou.sql`, disponibilizado junto ao projeto.
-4. Copie o conteúdo do arquivo e execute no SQL Editor.
-5. Configure as variáveis de ambiente do back-end conforme a seção 6.3 deste documento.
+Siga os passos:
 
-### 7.4. Observações sobre a exportação
+1. Acesse [supabase.com](https://supabase.com/) e entre na sua conta.
+2. Crie um projeto ou abra o projeto Supabase que será utilizado pelo HelpYou. Guarde a senha do banco em local seguro; ela não é a mesma coisa que a chave pública da API.
+3. No painel do projeto, localize a URL do projeto e a chave pública da API (publishable key ou anon key, conforme a configuração apresentada). Copie a URL para `SUPABASE_URL` e a chave pública para `SUPABASE_KEY` no arquivo `.env`.
+4. No painel do Supabase, abra o **SQL Editor** e crie uma nova consulta.
+5. Abra o arquivo `bancoDados_helpyou.sql` que acompanha a entrega, copie todo o conteúdo e cole na consulta do SQL Editor.
+6. Execute o script. Ele cria as tabelas `mensagens_contato`, `perfis` e `registros_estudo` no schema `public`. Confira no **Table Editor** se as três tabelas foram criadas.
+7. Volte ao projeto no VS Code e confirme que o `.env` está salvo na pasta principal, junto ao `package.json`, com a URL e a chave corretas.
+8. Abra o terminal nessa mesma pasta e execute `npm install` para instalar as dependências.
+9. Inicie o servidor com `npm run dev`. O servidor utiliza as variáveis do `.env` para conectar ao Supabase.
+10. Abra o front-end pelo endereço configurado em `FRONTEND_URL` (por exemplo, usando o Live Server do VS Code). Faça um teste com uma conta de demonstração e confira as funcionalidades que consultam ou gravam dados.
+
+**Importante sobre as tabelas relacionadas à autenticação:** `perfis.id` e `registros_estudo.usuario_id` fazem referência a `auth.users.id`. Portanto, para testar essas funcionalidades, primeiro crie uma conta pela tela de cadastro do HelpYou ou pelo recurso de autenticação do Supabase. O script SQL não cria usuários de demonstração.
+
+### 7.4. Verificações e solução de problemas
+
+- **URL ou chave incorreta:** confira se não há espaços antes ou depois dos valores no `.env` e se eles pertencem ao mesmo projeto Supabase.
+- **Variáveis não reconhecidas:** confirme que o `.env` está na pasta em que o servidor é iniciado e reinicie o servidor depois de alterar o arquivo.
+- **Erro ao consultar ou gravar dados:** confira se as tabelas foram criadas no schema `public` e se as políticas de Row Level Security (RLS) permitem a operação para o usuário autenticado.
+- **Erro de autenticação:** teste com uma conta válida e verifique se a sessão não expirou.
+
+### 7.5. Observações sobre a exportação
+
 
 O arquivo SQL foi elaborado com base nas colunas, tipos, valores padrão, chaves primárias e chaves estrangeiras consultadas no painel do Supabase.
 
@@ -149,7 +174,7 @@ As credenciais de acesso ao Supabase devem ser mantidas em um arquivo `.env` loc
 
 Não compartilhe senhas, tokens, chaves privadas, a chave `service_role` ou dados pessoais dos usuários.
 
-O arquivo `.env` com credenciais reais não deve ser incluído na entrega do projeto.
+O arquivo `.env` com credenciais reais não deve ser incluído na entrega do projeto. Pode ser enviado apenas o `.env.example`, desde que contenha nomes de variáveis e valores vazios ou fictícios.
 
 ## 9. Desenvolvedores
 
@@ -158,5 +183,3 @@ Projeto desenvolvido como Trabalho de Conclusão de Curso por alunas do **3° IP
 ## 10. Licença
 
 Projeto desenvolvido para fins educacionais.
-
-Atenção antes de enviar: confira se o arquivo SQL realmente contém a estrutura descrita na documentação e se o orientador terá acesso às credenciais necessárias para testar o sistema. A chave `service_role` e outras credenciais administrativas nunca devem ser incluídas no ZIP.
