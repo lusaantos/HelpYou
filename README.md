@@ -110,7 +110,15 @@ http://localhost:3000
 
 ### 6.5. Acesso à plataforma
 
-Após iniciar o servidor back-end, abra o arquivo inicial do projeto no navegador para acessar a plataforma.
+O back-end e o front-end são iniciados separadamente:
+
+1. Mantenha o servidor back-end em execução no terminal, usando `npm run dev`.
+2. No Visual Studio Code, abra a pasta principal do projeto.
+3. Abra o arquivo `index.html` com o **Live Server**.
+4. Confira se o endereço exibido pelo Live Server corresponde ao valor configurado em `FRONTEND_URL` no `.env` (por exemplo, `http://127.0.0.1:5500`).
+5. Acesse esse endereço no navegador.
+
+Se o Live Server utilizar outra porta ou endereço, atualize `FRONTEND_URL` no `.env` para corresponder ao endereço real e reinicie o back-end. O endereço `http://localhost:3000` corresponde ao servidor back-end; não necessariamente é o endereço da página inicial.
 
 ## 7. Banco de dados
 
@@ -152,14 +160,30 @@ Siga os passos:
 
 **Importante sobre as tabelas relacionadas à autenticação:** `perfis.id` e `registros_estudo.usuario_id` fazem referência a `auth.users.id`. Portanto, para testar essas funcionalidades, primeiro crie uma conta pela tela de cadastro do HelpYou ou pelo recurso de autenticação do Supabase. O script SQL não cria usuários de demonstração.
 
-### 7.4. Verificações e solução de problemas
+### 7.4. Políticas de segurança (Row Level Security — RLS)
+
+O arquivo `bancoDados_helpyou.sql` cria as três tabelas descritas neste documento, mas não configura as políticas de Row Level Security (RLS). Essas políticas controlam quais operações cada usuário pode realizar nas tabelas.
+
+Depois de executar o script SQL:
+
+1. No painel do Supabase, abra o **Table Editor** e selecione cada tabela.
+2. Verifique a situação de RLS e consulte a área de políticas (**Policies**) de cada tabela.
+3. Configure e teste políticas compatíveis com as operações que o HelpYou realmente realiza. Por exemplo, os registros de estudo e os dados de perfil devem respeitar o vínculo com o usuário autenticado.
+4. Para `mensagens_contato`, defina cuidadosamente quais operações podem ser feitas pelo formulário e por quem administra as mensagens.
+5. Teste as operações com uma conta de demonstração e confirme que um usuário não consegue consultar ou alterar dados de outro usuário.
+
+Não desative o RLS apenas para fazer a aplicação funcionar. As regras exatas dependem das consultas e operações implementadas no código; este README não fornece políticas SQL prontas porque elas precisam corresponder à lógica real do projeto.
+
+### 7.5. Verificações e solução de problemas
 
 - **URL ou chave incorreta:** confira se não há espaços antes ou depois dos valores no `.env` e se eles pertencem ao mesmo projeto Supabase.
-- **Variáveis não reconhecidas:** confirme que o `.env` está na pasta em que o servidor é iniciado e reinicie o servidor depois de alterar o arquivo.
-- **Erro ao consultar ou gravar dados:** confira se as tabelas foram criadas no schema `public` e se as políticas de Row Level Security (RLS) permitem a operação para o usuário autenticado.
+- **Variáveis não reconhecidas:** confirme que o `.env` está na pasta principal, junto ao `package.json`, e reinicie o servidor depois de alterar o arquivo.
+- **Erro ao consultar ou gravar dados:** confira se as tabelas foram criadas no schema `public` e se as políticas RLS permitem a operação necessária para o usuário autenticado.
+- **Erro de permissão:** confira as políticas RLS da tabela e teste com uma conta que tenha a sessão ativa.
 - **Erro de autenticação:** teste com uma conta válida e verifique se a sessão não expirou.
+- **Problema ao abrir a página:** confirme que o back-end está em execução e que o Live Server está usando o endereço configurado em `FRONTEND_URL`.
 
-### 7.5. Observações sobre a exportação
+### 7.6. Observações sobre a exportação
 
 
 O arquivo SQL foi elaborado com base nas colunas, tipos, valores padrão, chaves primárias e chaves estrangeiras consultadas no painel do Supabase.
@@ -174,7 +198,6 @@ As credenciais de acesso ao Supabase devem ser mantidas em um arquivo `.env` loc
 
 Não compartilhe senhas, tokens, chaves privadas, a chave `service_role` ou dados pessoais dos usuários.
 
-O arquivo `.env` com credenciais reais não deve ser incluído na entrega do projeto. Pode ser enviado apenas o `.env.example`, desde que contenha nomes de variáveis e valores vazios ou fictícios.
 
 ## 9. Desenvolvedores
 
