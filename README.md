@@ -138,8 +138,6 @@ As configurações necessárias para essas integrações são lidas pelo projeto
 
 O arquivo `.env` contém configurações de acesso a serviços utilizados pela aplicação. Não publique esse arquivo em repositórios públicos nem compartilhe suas credenciais fora do contexto autorizado para a avaliação do projeto.
 
-Em uma publicação pública ou em um ambiente de produção, utilize um arquivo `.env.example` sem credenciais reais e mantenha os segredos protegidos. Nunca exponha chaves privadas ou a chave `service_role` em código executado no navegador.
-
 ## 10. Desenvolvedores
 
 Projeto desenvolvido como Trabalho de Conclusão de Curso por estudantes do curso Técnico de Informática para a Internet.
