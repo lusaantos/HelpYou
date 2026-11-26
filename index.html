@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help You</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/inicio.css">
+    <!-- Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <!--TOPO-->
+    <header class="topo">
+        <div class="barra-superior">
+
+
+            <!--lado-esquerdo-->
+            <div class="lado-esquerdo">
+                <i class="bi bi-list menu" id="menu-btn"></i>
+
+                <!--Perfil-->
+                <div class="perfil-container">
+
+                    <a href="#" class="perfil" id="perfilHeader">
+                        <div class="foto-header">
+                            <i class="bi bi-person-circle" id="iconePerfilHeader"></i>
+                            <img id="fotoPerfilHeader" src="" alt="Foto de perfil">
+                        </div>
+
+                        <span id="nomePerfilHeader">Cadastrar-se</span>
+                    </a>
+
+                    <div class="balao-perfil" id="balaoPerfil">
+                        <button type="button" id="sairDaConta">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Sair da conta
+                        </button>
+                    </div>
+
+                </div>
+                <!--Lado direito-->
+                <div class="lado-direito">
+                    <a href="pages/sobre.html" class="sobre">Sobre</a>
+                    <img src="img/logo.png" alt="logo" class="logo">
+                </div>
+
+            </div>
+
+            <!-- Menu hamburguer -->
+            <nav class="menu-mobile" id="menu-mobile">
+
+                <div class="menu-topo">
+
+                    <i class="bi bi-x-lg fechar-menu"></i>
+
+                    <div id="google_translate_element"></div>
+                    <script type="text/javascript">
+
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({
+                                pageLanguage: 'pt', // Idioma original do seu site
+                                includedLanguages: 'en,es,fr,it', // Idiomas permitidos (separados por vírgula)
+                                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                            }, 'google_translate_element');
+                        }
+                    </script>
+                    <!-- Elfsight Website Translator | Untitled Website Translator -->
+                    <script src="https://elfsightcdn.com/platform.js" async></script>
+                    <div class="elfsight-app-9aaa4bbe-d3af-498f-9b39-04adf4700d3f" data-elfsight-app-lazy></div>
+                    <script type="text/javascript" src="//://google.com"></script>
+                </div>
+
+                <a href="index.html" class="menu-ativo">Início</a>
+                <a href="pages/sobre.html">Sobre</a>
+                <a href="pages/cronograma.html">Cronograma</a>
+                <a href="pages/desempenho.html">Desempenho</a>
+
+            </nav>
+
+            <!-- ÍCONES -->
+            <div class="icons">
+
+                <a href="pages/cronograma.html">
+                    <i class="bi bi-calendar-minus"></i>
+                </a>
+
+                <a href="pages/desempenho.html">
+                    <i class="bi bi-bar-chart"></i>
+                </a>
+
+            </div>
+    </header>
+
+    <!-- Conteúdo Frase-->
+    <div class="hero">
+        <div class="texto">
+            <h1>Quem sonha com aprovação, faz da HelpYou sua direção!</h1>
+            <p>Na HelpYou, cada aula é um passo mais perto da aprovação. Com apoio, estratégia e dedicação, você
+                transforma seus sonhos em resultados e chega preparado para conquistar a vaga que sempre quis.</p>
+        </div>
+
+        <div class="card-extensivo">
+
+            <div class="blob">
+
+                <img src="img/estudante.png" alt="Estudante">
+
+                <h2>Extensivo</h2>
+
+                <div class="linha"></div>
+
+                <p>3 a 4 aulas por dia</p>
+
+                <div class="linha"></div>
+
+                <p>Conteúdo exclusivo</p>
+
+                <div class="linha"></div>
+
+                <p>Matérias completas</p>
+
+                <button type="button" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+                    Acessar
+                </button>
+            </div>
+        </div>
+
+
+
+        <!-- POP-UP DE CADASTRO -->
+        <div class="modal fade" id="cadastroModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h2 class="modal-title">Cadastre-se</h2>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Crie sua conta para começar</p>
+
+                        <form id="cadastroForm">
+
+                            <label for="nome">Nome completo</label>
+                            <input type="text" id="nome" required>
+
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" required>
+                            <div class="campo-senha">
+                                <label for="senha">Senha</label>
+
+                                <div class="senha-caixa">
+                                    <input type="password" id="senha" placeholder="Minímo 6 caracteres" required>
+
+                                    <button type="button" class="mostrar-senha" data-target="senha">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <label for="telefone">Telefone </label>
+                            <input type="tel" id="telefone" required>
+
+                            <div class="termos">
+                                <input type="checkbox" id="termos" required>
+
+                                <label for="termos">
+                                    Eu concordo com os
+                                    <span class="termo-hover">
+                                        Termos de Privacidade
+
+                                        <span class="balao-termo">
+                                            Ao realizar o cadastro, seus dados pessoais serão utilizados apenas para
+                                            permitir o
+                                            acesso e o funcionamento da plataforma Help You. Suas informações serão
+                                            mantidas em
+                                            segurança e não serão compartilhadas com terceiros sem sua autorização,
+                                            exceto quando
+                                            necessário por obrigação legal. Ao se cadastrar, você concorda com estes
+                                            termos e com
+                                            o uso responsável de suas informações.
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <button type="submit">Criar conta</button>
+
+                        </form>
+                        <p>
+                            Já tem uma conta?
+                            <a href="#" id="abrirLogin">Entrar</a>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h2 class="modal-title">Entrar</h2>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form id="formLogin">
+
+                            <label for="loginEmail">E-mail</label>
+
+                            <input type="email" name="email" id="loginEmail" placeholder="E-mail" required>
+
+                            <div class="campo-senha">
+
+                                <label for="loginSenha">Senha</label>
+
+                                <div class="senha-caixa">
+
+                                    <input type="password" name="senha" id="loginSenha" placeholder="Informe sua senha"
+                                        required>
+
+                                    <button type="button" class="mostrar-senha" data-target="loginSenha"
+                                        aria-label="Mostrar senha">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <!-- ESQUECI MINHA SENHA -->
+                            <div class="esqueci-senha">
+                                <a href="#" id="abrirRecuperacao">
+                                    Esqueci minha senha
+                                </a>
+                            </div>
+
+                            <button type="submit">Entrar</button>
+
+                        </form>
+
+                        <p>
+                            Ainda não tem uma conta?
+
+                            <a href="#" id="abrirCadastro">
+                                Criar conta
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE RECUPERAÇÃO DE SENHA -->
+        <div class="modal fade" id="recuperacaoModal" tabindex="-1" aria-labelledby="tituloRecuperacao"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloRecuperacao">
+                            Recuperar senha
+                        </h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>
+                            Digite seu e-mail cadastrado para receber
+                            o link de recuperação de senha.
+                        </p>
+
+                        <form id="formRecuperacao">
+
+                            <div class="mb-3">
+                                <label for="recuperacaoEmail" class="form-label">
+                                    E-mail cadastrado
+                                </label>
+
+                                <input type="email" class="form-control" id="recuperacaoEmail"
+                                    placeholder="Digite seu e-mail" autocomplete="email" required>
+
+                            </div>
+
+                            <button type="submit" class="btn w-100" id="botaoRecuperacao" style="
+                            background-color: #9cdb62;
+                            border-radius: 25px;
+                            color: white;
+                            font-weight: bold;
+                        ">
+                                Enviar link de recuperação
+                            </button>
+
+                            <p id="mensagemRecuperacao" class="mt-3 mb-0" role="status" aria-live="polite"></p>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2026 HelpYou. Todos os direitos reservados.</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Inicio</a>
+                    <a href="pages/sobre.html">Sobre</a>
+                    <a href="pages/contato.html">Contato</a>
+                    <a href="pages/politicadePrivacidade.html">Política de Privacidade</a>
+                </nav>
+            </div>
+        </footer>
+
+
+        <!-- Seu JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/script.js"></script>
+</body>
+
+</html>
