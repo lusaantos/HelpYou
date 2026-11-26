@@ -58,7 +58,7 @@ O projeto está organizado em pastas para facilitar a manutenção e o desenvolv
 
 Antes de iniciar, é necessário ter instalado:
 
-- [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/) - v24.15.0
 - [Visual Studio Code](https://code.visualstudio.com/)
 - Um navegador de internet.
 
